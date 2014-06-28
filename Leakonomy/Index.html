@@ -86,7 +86,7 @@
                 var rawTransactions = $scope.rawText.split("\n");
 
                 $scope.transactions = [];
-                $scope.uniqueEvents = {};
+                $scope.uniqueEvents = [];
                 angular.forEach(rawTransactions, function (rawTransaction, key) {
                     if (rawTransaction.trim().length > 0) {
                         var textParts = rawTransaction.split(" ");
@@ -100,7 +100,10 @@
 
                         var transaction = { transactionDate: textParts[0], event: event, amount: textParts[textParts.length - 1]};
                         $scope.transactions.push(transaction);
-                        $scope.uniqueEvents[event] = '';
+
+                        if (_.indexOf($scope.uniqueEvents, eventTagList.event) < 0) {
+                            $scope.uniqueEvents.push(eventTagList.event);
+                        }
                     }
                 });
 
@@ -108,17 +111,19 @@
                     $scope.eventTagLists = [];
                     _.each(eventTagLists, function (eventTagList) {
                         var tags = '';
-                        if ($scope.uniqueEvents[eventTagList.event] != null) {                           
+                        var uniqueEventIndex = _.indexOf($scope.uniqueEvents, eventTagList.event);
+                        if (uniqueEventIndex >= 0) {
                             _.each(eventTagList.tags, function (tag) {
                                 tags += tags.length == 0 ? tag : ', ' + tag;
                             });
 
-                            $scope.uniqueEvents[eventTagList.event] = tags;
+                            $scope.eventTagLists.push({ event: event, tags: tags });
+                            $scope.uniqueEvents.splice(uniqueEventIndex, 1);
                         }
                     });
 
                     _.each($scope.uniqueEvents, function (event) {
-                        $scope.eventTagLists.push({ event: event, tags: $scope.uniqueEvents[event] });
+                        $scope.eventTagLists.push({ event: event, tags: '' });
                     });
                 });
 
