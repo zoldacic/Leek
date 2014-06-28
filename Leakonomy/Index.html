@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="myapp">
+<head>
+    <title></title>
+    <!--<script src='http://cdnjs.cloudflare.com/ajax/libs/ng-grid/2.0.11/ng-grid.css'></script>-->
+    <!--<script type="text/javascript" src="http://angular-ui.github.com/ng-grid/css/ng-grid.css"></script>-->
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.6/angular.min.js'></script>
+    <script src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
+    <script src='https://cdn.firebase.com/libs/angularfire/0.7.1/angularfire.min.js'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js'></script>
+    <!--<script src='http://cdnjs.cloudflare.com/ajax/libs/ng-grid/2.0.11/ng-grid.min.js'></script>-->
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js'></script>
+
+
+    <script type="text/javascript" src="http://angular-ui.github.com/ng-grid/lib/ng-grid.debug.js"></script>
+
+    <link href="index.css" rel="stylesheet" />
+
+
+
+
+</head>
+<body ng-controller="MyController">
+
+    <!-- Parse transactions -->
+    <div ng-show="IsInPhase(Phases.STEP1)">
+        <textarea ng-model="rawText" style="width: 500px; height: 200px"></textarea>
+        <button ng-click="parseRawText()">Preview</button>
+    </div>
+
+    <!-- Add transactions -->
+    <div ng-show="IsInPhase(Phases.STEP2)">
+        <div class="gridStyle" ng-grid="gridOptions"></div>
+        <button ng-click="addTransactions()">Add all</button>
+    </div>
+    
+    <!-- Add tags-->
+    <div ng-show="IsInPhase(Phases.STEP3)">
+        <div class="gridStyle" ng-grid="tagGridOptions"></div>
+        <button ng-click="addTags()">Add all</button>
+    </div>
+
+    <script>
+        var app = angular.module('myapp', ['firebase', 'ngGrid']);
+
+        function MyController($scope, $firebase) {
+            var baseRef = 'https://leakonomy.firebaseio.com/';
+            var transactionRef = $firebase(new Firebase(baseRef + '/transactions'));
+            var tagsRef = $firebase(new Firebase(baseRef + '/tags'));
+
+            $scope.Phases = { STEP1: 1, STEP2: 2, STEP3: 3 };
+            var currentPhase = $scope.Phases.STEP1;
+
+            $scope.IsInPhase = function(phase) {
+                return currentPhase == phase;
+            }
+
+            $scope.rawText = '140507 MAX I SKELLEFTEA, SKELLEFTEA 161,00';          
+
+            $scope.gridOptions = {
+                data: 'transactions',
+                enableCellSelection: true,
+                enableRowSelection: false,
+                enableCellEditOnFocus: true,
+                columnDefs: [
+                    { field: 'transactionDate', displayName: 'TransactionDate', enableCellEdit: true },
+                    { field: 'event', displayName: 'Event', enableCellEdit: false },
+                    { field: 'amount', displayName: 'Amount', enableCellEdit: false },
+                    //{ field: 'tags', displayName: 'Tags', enableCellEdit: true }
+                ]
+            };
+
+            $scope.tagGridOptions = {
+                data: 'eventTagLists',
+                enableCellSelection: true,
+                enableRowSelection: false,
+                enableCellEditOnFocus: true,
+                columnDefs: [
+                    { field: 'event', displayName: 'Event', enableCellEdit: false },
+                    { field: 'tags', displayName: 'Tags', enableCellEdit: true }]
+            };
+
+            $scope.parseRawText = function () {
+                var rawTransactions = $scope.rawText.split("\n");
+
+                $scope.transactions = [];
+                $scope.uniqueEvents = {};
+                angular.forEach(rawTransactions, function (rawTransaction, key) {
+                    if (rawTransaction.trim().length > 0) {
+                        var textParts = rawTransaction.split(" ");
+
+                        var event = '';
+                        for (var i = 1; i < textParts.length - 1; i++) {
+                            event += ' ' + textParts[i];
+                        }
+
+                        event = event.trim();                        
+
+                        var transaction = { transactionDate: textParts[0], event: event, amount: textParts[textParts.length - 1]};
+                        $scope.transactions.push(transaction);
+                        $scope.uniqueEvents[event] = '';
+                    }
+                });
+
+                tagsRef.$on('loaded', function (eventTagLists) {
+                    $scope.eventTagLists = [];
+                    _.each(eventTagLists, function (eventTagList) {
+                        var tags = '';
+                        if ($scope.uniqueEvents[eventTagList.event] != null) {                           
+                            _.each(eventTagList.tags, function (tag) {
+                                tags += tags.length == 0 ? tag : ', ' + tag;
+                            });
+
+                            $scope.uniqueEvents[eventTagList.event] = tags;
+                        }
+                    });
+
+                    _.each($scope.uniqueEvents, function (event) {
+                        $scope.eventTagLists.push({ event: event, tags: $scope.uniqueEvents[event] });
+                    });
+                });
+
+                currentPhase = $scope.Phases.STEP2;
+            }
+
+            $scope.addTransactions = function () {                
+                _.each($scope.transactions, function (transaction) { transactionRef.$add(transaction); });
+                currentPhase = $scope.Phases.STEP3;
+            };
+
+            $scope.addTags = function () {
+                var tags = [];
+                var events = [];
+                _.each($scope.eventTagLists, function (eventTagList) {
+                    var eventTags = eventTagList.tags.split(',');
+                    tagsRef.$add({ event: event, tags: eventTags });
+                });
+            }
+        }
+    </script>
+
+</body>
+</html>
