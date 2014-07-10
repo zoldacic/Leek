@@ -1,0 +1,38 @@
+﻿
+<div class="datasets" ng-controller="datasetCtrl as vm">
+    <div class="container">
+
+        <a href="#/GraphRegister">Graphs</a>
+        <a href="#/DatasetRegister">Datasets</a>
+
+        <div class="well col-sm-12 col-md-6">
+
+            <div class="row"><label for="datasetName">Dataset name</label><input id="datasetName" class="form-control" type="text" ng-model="datasetName" /></div>
+
+            <!--data-toggle="buttons"-->
+
+            <div class="row">
+                <label>Tags</label>
+            </div>
+            <div class="row">
+                <div class="btn-group">
+                    <label class="btn btn-primary" ng-repeat="tag in tags">
+                        <input type="checkbox" ng-model="tag.selected">{{tag.name}}
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <label for="color">Color</label>
+                <select class="form-control" id="color" ng-model="color" ng-options="color.name for color in colors">
+                    <!--<option value="">-- Choose color --</option>-->
+                </select>
+            </div>
+            <div class="row">
+                <button class="btn btn-default pull-right" ng-click="addDataset()">Add dataset</button>
+            </div>
+            <div class="row">
+                <div class="gridStyle" ng-grid="datasetGridOptions"></div>
+            </div>
+        </div>
+    </div>
+</div>

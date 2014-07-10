@@ -65,12 +65,32 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Index.css" />
+    <Content Include="Common\Common.css" />
+    <Content Include="Common\ResourceHandler.js" />
+    <Content Include="GraphDisplay\GraphDisplay.css" />
+    <Content Include="GraphDisplay\GraphDisplay.html" />
+    <Content Include="GraphDisplay\GraphDisplayCtrl.js" />
+    <Content Include="Main\MainCtrl.js" />
+    <Content Include="Registers\Graphs\Datasets.html" />
+    <Content Include="Registers\Graphs\DatasetsCtrl.js" />
+    <Content Include="Registers\Graphs\Graphs.css" />
+    <Content Include="Registers\Graphs\Graphs.html" />
+    <Content Include="Registers\Graphs\GraphsCtrl.js" />
+    <Content Include="TransactionInput\TransactionInput.css" />
+    <Content Include="TransactionInput\TransactionInput.html" />
     <Content Include="Index.html" />
+    <Content Include="Main\Main.css" />
+    <Content Include="Main\Main.html" />
+    <Content Include="Module\Leakonomy.js" />
+    <Content Include="TransactionInput\TransactionInputCtrl.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Registers\Tags\" />
+    <Folder Include="Registers\Transactions\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

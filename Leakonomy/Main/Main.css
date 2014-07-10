@@ -1,0 +1,18 @@
+﻿
+.main .actionPlaceHolder {
+  padding: 5px
+}
+
+.main .power {
+  min-width: 300px;
+  max-width: 100%;
+  width: 100%;
+  min-height: 95px;
+}
+
+.main .register {
+  min-width: 300px;
+  max-width: 100%;
+  width: 100%;
+  min-height: 60px;
+}
