@@ -18,6 +18,7 @@
                 columnDefs: [
                     { field: 'name', displayName: 'Name', enableCellEdit: false },
                     { field: 'description', displayName: 'Description', enableCellEdit: false },
+                    { field: 'type.name', displayName: 'Type', enableCellEdit: false },
                     { field: 'type.name', displayName: 'Type', enableCellEdit: false }
                 ]
             };
@@ -61,23 +62,27 @@
 
             datasetColors = ['#ffffff', '#ff0000', '#00ff00', '#0000ff'];
 
-            //vm.tagOptions = tagOptions;
             vm.selectTag = selectTag;
 
-            tagsRef.$on('loaded', function (eventTagLists) {
+            resourceHandler.listGraphs().then(function (graphs) {
+                _.each(graphs, function (graph) {
+                    vm.graphs.push(graph);
+                });
+            });
+
+            resourceHandler.listTags().then(function (eventTagLists) {
                 var uniqueTags = [];
                 var tags = _.flatten(_.pluck(eventTagLists, 'tags'));
                 _.each(tags, function (tag) {
                     if (_.indexOf(uniqueTags, tag) < 0) {
                         uniqueTags.push(tag);
                     }
-                });
+                }); 
 
                 vm.tags = [];
                 _.each(uniqueTags, function (tag) {
                     vm.tags.push({ tagGroupId: 0, name: tag, style: { 'background-color': datasetColors[0] } });
                 });
-
             });
 
             setupGrids();
@@ -103,64 +108,6 @@
                 graphsRef.$add(graph); 
                 vm.graphs.push(graph);
             }
-
-            //vm.showGraph = function () {
-            //    _.each(vm.datasets, function (dataset) {
-
-            //        // Retrieve events from tags in dataset
-            //        var events = [];
-            //        tagsRef.$on('loaded', function (eventTagLists) { // on change?
-            //            events = _.filter(eventTagLists, function (eventTagList) {
-            //                var foundTags = _.filter(eventTagList.tags, function (tag) {
-            //                    return _.contains(dataset.tagList, tag);
-            //                });
-
-            //                return foundTags.length > 0;
-            //            });
-
-            //            // Retrieve transactions from events and date
-            //            // TODO: Hur hitta utan att läsa upp allt?
-            //            var transactions = [];
-            //            transactionRef.$on('loaded', function (transactionsInStore) {
-            //                var eventNames = _.pluck(events, 'event');
-            //                transactions = _.filter(transactionsInStore, function (transaction) {
-            //                    return _.contains(eventNames, transaction.event); // TODO: Kolla även datum. Format på datum?
-            //                });
-
-            //                // Group transactions
-            //                var transactionGroups = _.groupBy(transactions, function (transaction) { return transaction.transactionDate.substring(0, 4) });
-
-            //                // Summarize transactions
-            //                var amountSums = [];
-            //                _.each(transactionGroups, function (transactionGroup) {
-            //                    var tags = transactionGroup
-            //                    var amounts = _.map(transactionGroup, function (transaction) { return parseInt(transaction.amount) });
-            //                    amountSums.push(_.reduce(amounts, function (sum, transactionAmount) {
-            //                        return sum + transactionAmount;
-            //                    }));
-            //                });
-
-            //                //var data = new google.visualization.DataTable();
-            //                //data.addColumn('string', 'Topping');
-
-            //                //var data = google.visualization.arrayToDataTable([
-            //                //  ['Year', 'Sales', 'Expenses'],
-            //                //  ['2004', 1000, 400],
-            //                //  ['2005', 1170, 460],
-            //                //  ['2006', 660, 1120],
-            //                //  ['2007', 1030, 540]
-            //                //]);
-            //                //var options = {
-            //                //    title: 'Company Performance'
-            //                //};
-            //                //var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-
-            //                //chart.draw(data, options);
-            //            });
-            //        });
-            //    });
-
-            //}
         }
 
         activate();

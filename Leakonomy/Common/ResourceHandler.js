@@ -2,15 +2,25 @@
     'use strict';
 
     var serviceId = 'resourceHandler';
-    angular.module(appName).factory(serviceId, ['$firebase', resourceHandler]);
+    angular.module(appName).factory(serviceId, ['$firebase', '$q', resourceHandler]);
 
-    function resourceHandler($firebase) {
+    function resourceHandler($firebase, $q) {
 
-        var baseRef, transactionRef, tagsRef, graphsRef;
+        var baseRef, transactionsRef, tagsRef, graphsRef;
+
+        function list(ref) {
+            var deferred = $q.defer();
+
+            ref.$on('loaded', function (data) {
+                deferred.resolve(data);
+            });
+
+            return deferred.promise;
+        }
 
         function activate() {
             baseRef = 'https://leakonomy.firebaseio.com/';
-            transactionRef = $firebase(new Firebase(baseRef + '/transactions'));
+            transactionsRef = $firebase(new Firebase(baseRef + '/transactions'));
             tagsRef = $firebase(new Firebase(baseRef + '/tags'));
             graphsRef = $firebase(new Firebase(baseRef + '/graphs'));
         }
@@ -18,8 +28,15 @@
         activate();
 
         var service = {
+            listTransactions: function () { return list(transactionsRef); },
+            listTags: function () { return list(tagsRef); },
+            listGraphs: function () { return list(graphsRef); },
+
             baseRef: baseRef,
-            transactionRef: transactionRef,
+            transactionsRef: transactionsRef,
+
+            // TODO: Remove ref below
+            transactionRef: transactionsRef,
             tagsRef: tagsRef,
             graphsRef: graphsRef
         };

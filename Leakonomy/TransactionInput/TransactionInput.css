@@ -1,4 +1,6 @@
-﻿
+﻿.transactionInput .well {
+    padding: 0px 10px 0px 10px;
+}
 
 .transactionInput .gridStyle {
     border: 1px solid rgb(212,212,212);

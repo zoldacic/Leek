@@ -65,6 +65,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Common\bootstrap.css" />
     <Content Include="Common\Common.css" />
     <Content Include="Common\ResourceHandler.js" />
     <Content Include="GraphDisplay\GraphDisplay.css" />
