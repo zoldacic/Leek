@@ -1,0 +1,38 @@
+﻿
+
+<div class="transactionInput" ng-controller="transactionInputCtrl as vm">
+    <div class="container">
+        <div class="col-xs-12 col-sm-7">
+            <div class="row">
+                <!-- Parse transactions -->
+                <div class="well inactive col-xs-12" ng-click="vm.setActive(vm.Phases.STEP1)" ng-class="{active: vm.isInPhase(vm.Phases.STEP1)}">
+                    <h2>Parse transactions</h2>
+                    <div ng-show="vm.isInPhase(vm.Phases.STEP1)">
+                        <textarea ng-model="vm.rawText" style="width: 100%; height: 200px"></textarea>
+                        <button ng-click="vm.parseRawText(); $event.stopPropagation()">Preview</button>
+                    </div>
+                </div>
+
+                <!-- Add transactions -->
+                <div class="well inactive col-xs-12" ng-click="vm.setActive(vm.Phases.STEP2)" ng-class="{active: vm.isInPhase(vm.Phases.STEP2)}">
+                    <h2>Add transactions</h2>
+                    <div ng-show="vm.isInPhase(vm.Phases.STEP2)">
+                        <div class="gridStyle" ng-grid="vm.gridOptions"></div>
+                        <button ng-click="vm.addTransactions(); $event.stopPropagation()">Add all</button>
+                    </div>
+                </div>
+
+                <!-- Add tags-->
+                <div class="well inactive col-xs-12" ng-click="vm.setActive(vm.Phases.STEP3)" ng-class="{active: vm.isInPhase(vm.Phases.STEP3)}" >
+                    <h2>Add tags</h2>
+                    <div ng-show="vm.isInPhase(vm.Phases.STEP3)">
+                        <div class="gridStyle" ng-grid="vm.tagGridOptions"></div>
+                        <button ng-click="vm.addTags(); $event.stopPropagation()">Add all</button>
+                    </div>
+                </div>
+
+                <!--<div ng-show="vm.IsInPhase(Phases.STEP4)">All added!</div>-->
+            </div>
+        </div>
+    </div>
+</div>
