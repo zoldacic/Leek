@@ -32,6 +32,8 @@
             listTags: function () { return list(tagsRef); },
             listGraphs: function () { return list(graphsRef); },
 
+            getGraph: function (key) { return list($firebase(new Firebase(baseRef + '/graphs/' + key))); },
+
             baseRef: baseRef,
             transactionsRef: transactionsRef,
 

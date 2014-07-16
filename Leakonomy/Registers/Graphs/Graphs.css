@@ -1,15 +1,41 @@
 ﻿.graphRegister .gridStyle {
     border: 1px solid rgb(212,212,212);
-    width: 500px;
-    height: 300px;
+    width: 100%;
+    height: 100%;
     min-height: 300px;
+    margin-top: 10px;
 }
 
-/*.graphRegister .ngViewport.ng-scope{
-    height: auto !important;
-    overflow-y: hidden;
+.graphRegister .well {
+    padding-top: 8px;
 }
 
-.graphRegister .ngTopPanel.ng-scope, .graphRegister .ngHeaderContainer{
-    width: auto !important;
-}*/
+.graphRegister .dateInputGroup {
+}
+
+.graphRegister .btn-group {
+    margin: 5px;
+    border-radius: 4px;
+}
+
+.graphRegister .btn-group .btn-tag {
+    margin: 2px;
+}
+
+.graphRegister .btn-group > .btn:not(:first-child):not(:last-child) {
+    border-radius: 4px;
+}
+
+.graphRegister .btn-group > .btn:first-child:not(:last-child) {
+    border-radius: 4px;
+}
+
+.graphRegister .btn-group > .btn:last-child:not(:last-child) {
+    border-radius: 4px;
+}
+
+.graphRegister .btn-grid {
+    padding: 1px 6px; 
+    height: 28px; 
+    width: 100%
+}

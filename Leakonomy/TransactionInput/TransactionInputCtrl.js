@@ -66,14 +66,15 @@
         function addTags() {
             var tags = [];
             var events = [];
-            _.each(vm.eventTagLists, function (eventTagList) {
-                var eventTags = _.map(eventTagList.tags.split(','), function (eventTag) { return eventTag.trim() });
+            _.each(vm.eventTagLists, function (eventTagList) {                
 
                 if (eventTagList.key && eventTagList.key.length > 0) {
                     tagsRef.$remove(eventTagList.key);
                 }
 
+                var eventTags = _.map(eventTagList.tags.split(','), function (eventTag) { return eventTag.trim() });
                 eventTags = _.filter(eventTags, function (eventTag) { return eventTag && eventTag.length > 0 });
+
                 if (eventTags && eventTags.length > 0) {
                     tagsRef.$add({ event: eventTagList.event, tags: eventTags });
                 }

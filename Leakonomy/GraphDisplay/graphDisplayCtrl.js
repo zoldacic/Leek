@@ -14,7 +14,7 @@
         var vm = this;
         var eventTagLists, graphs, transactions;
 
-        function showGraph(datasets) {
+        function showGraph(graph, datasets, chartIndex) {
 
             var data = new google.visualization.DataTable();
 
@@ -35,26 +35,23 @@
             //var data = google.visualization.arrayToDataTable([
             //  ['Year', 'Sales', 'Expenses'],
             //  ['2004', 1000, 400],
-            //  ['2005', 1170, 460],
+            //  ['2005', 1170,_ 460],
             //  ['2006', 660, 1120],
             //  ['2007', 1030, 540]
             //]);
 
             var options = {
-                title: ' - Title - '
+                title: graph.name
             };
 
-            var chart = new google.visualization.PieChart(document.getElementById('chartdiv'));
+            var chart = new google.visualization.PieChart(document.getElementById('chart' + chartIndex));
             chart.draw(data, options);
         }
 
         function createGraph() {
             var datasets = [];
 
-            // TODO: Get selected graph from dropdown
-            var graph = graphs['-JRXLzhW6l0jsROWbVkl'];
-
-            _.each(graph.datasets, function (storedDataset) {
+            _.each(vm.graph.datasets, function (storedDataset) {
                 var name = _.reduce(storedDataset.tags, function (name, tag) { return name + ', ' + tag; });
                 var dataset = { color: storedDataset.color, name: name, values: {} };
 
@@ -77,23 +74,38 @@
                 });
 
                 datasets.push(dataset);
-                showGraph(datasets);
+
+                var index = vm.charts.length;
+                vm.charts.push({ index: index });
+                showGraph(vm.graph, datasets, index);
             });
 
         }
 
-        function activate() {
-            //vm.showGraph();
+        function addGraphs(graphs) {
+            vm.graphs = [];
+            _.each(graphs, function (graph, key) {
+                graph.key = key;
+                vm.graphs.push(graph);
+            });
+        };
 
-            // Load all transactions
+        function selectGraph() {
+            createGraph();
+        }
+
+        function activate() {
+
+            vm.charts = [];
+            vm.selectGraph = selectGraph;
+
             // TODO: Use promises instead. Update on 'change'?
-            resourceHandler.listTags().
+            resourceHandler.listGraphs().
+                then(addGraphs).
+                then(resourceHandler.listTags).
                 then(function (data) { eventTagLists = data; }).
                 then(resourceHandler.listTransactions).
-                then(function (data) { transactions = data; }).
-                then(resourceHandler.listGraphs).
-                then(function (data) { graphs = data; }).
-                then(createGraph);
+                then(function (data) { transactions = data; });
         }
         activate();
     }

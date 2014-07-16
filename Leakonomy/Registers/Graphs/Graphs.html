@@ -2,38 +2,42 @@
 <div class="graphRegister" ng-controller="graphsCtrl as vm">
     <div class="container">
 
-        <!--<a href="#/GraphRegister">Graphs</a>
-        <a href="#/DatasetRegister">Datasets</a>-->
         <div class="col-xs-12 col-sm-7">
             <div class="row">
 
-                <h1>Graphs</h1>
+                <h3>Graphs</h3>
                 <div class="well">
                     <div class="row">
 
-                        <div class="col-sm-12"><label for="graphName">Graph name</label><input id="graphName" class="form-control" type="text" ng-model="vm.graphName" /></div>
-                        <div class="col-sm-12"><label>Description</label><input class="form-control" type="text" ng-model="vm.description" /></div>
-                        <div class="col-sm-12"><label>Type</label><select class="form-control" ng-model="vm.graphType" ng-options="graphType.name for graphType in vm.graphTypes"></select></div>
-                        <div class="col-sm-12"><label>Interval</label><select class="form-control" ng-model="vm.timeInterval" ng-options="timeInterval.name for timeInterval in vm.timeIntervals"></select></div>
-                        <div class="col-sm-12"><label id="dateFrom">Date from</label><input id="dateFrom" type="date" ng-model="vm.dateFrom" /><label for="dateTo">Date from</label><input id="dateTo" type="date" ng-model="vm.dateTo" /></div>
+                        <div class="col-sm-12"><label for="graphName">Graph name</label><input id="graphName" class="form-control" type="text" ng-model="vm.graph.name" /></div>
+                        <div class="col-sm-12"><label>Description</label><input class="form-control" type="text" ng-model="vm.graph.description" /></div>
+                        <div class="col-sm-12"><label>Type</label><select class="form-control" ng-model="vm.graph.type" ng-options="graphType.name for graphType in vm.graphTypes"></select></div>
+                        <div class="col-sm-12"><label>Interval</label><select class="form-control" ng-model="vm.graph.timeInterval" ng-options="timeInterval.name for timeInterval in vm.timeIntervals"></select></div>
 
                         <div class="col-sm-12">
                             <label id="dateFrom">Tags</label>
-                            <!--<select class="form-control" ng-repeat="tag in vm.tags" ng-model="tag" ng-options="tagOption.text for tagOption in vm.tagOptions(tag)"></select>-->
                             <div class="btn-group">
-                                <!--<label class="btn btn-primary" ng-repeat="tag in vm.tags">-->
-                                    <!--<input type="checkbox" ng-model="tag.selected">{{tag.name}}-->
-                                <button type="button" class="btn btn-default" ng-repeat="tag in vm.tags" ng-style="tag.style" ng-click="vm.selectTag(tag)">{{tag.name}}</button>
-                                <!--</label>-->
+                                <button type="button" class="btn btn-default btn-tag" ng-repeat="tag in vm.tags" ng-style="tag.style" ng-click="vm.selectTag(tag)">{{tag.name}}</button>
                             </div>
+                        </div>
+                         
+                        <div class="dateInputGroup">
+                            <div class="col-sm-2"><label for="dateFrom">Date from</label></div>
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-9"><label for="dateTo">Date to</label></div>
+                            <div class="col-sm-2"><input id="dateFrom" type="date" ng-model="vm.graph.dateFrom" /></div>
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-9"><input id="dateTo" type="date" ng-model="vm.graph.dateTo" /></div>
+                            </div>
+
+                        <div class="col-sm-12">
+                            <button ng-show="vm.isInUpdate()" type="button" class="btn btn-primary" ng-click="vm.undoGraph()">Undo</button>
+                            <button ng-show="vm.isInUpdate()" type="button" class="btn btn-primary" ng-click="vm.updateGraph()">Save graph</button>
+                            <button type="button" class="btn btn-default" ng-click="vm.addGraph()">Save as new graph</button>
                         </div>
 
                         <div class="col-sm-12">
                             <div class="gridStyle" ng-grid="vm.graphGridOptions"></div>
-                        </div>
-
-                        <div class="col-sm-12">
-                            <button type="button" class="btn btn-default" ng-click="vm.addGraph()">Add graph</button>
                         </div>
 
                     </div>

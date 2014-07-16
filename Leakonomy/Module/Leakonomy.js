@@ -20,7 +20,7 @@ var appName = 'leakonomy';
         { name: 'GraphDisplay', text: 'View', url: 'GraphDisplay/GraphDisplay.html', isVisible: true, isRegister: false },
         { name: 'GraphRegister', text: 'Graphs', url: 'Registers/Graphs/Graphs.html', isVisible: true, isRegister: true },
         { name: 'TagsRegister', text: 'Tags', url: 'Registers/Tags/Tags.html', isVisible: true, isRegister: true },
-        { name: 'TransactionsRegister', text: 'Transactions', url: 'Registers/Transactions/Transactions.html', isVisible: true, isRegister: true }
+        { name: 'TransactionRegister', text: 'Transactions', url: 'Registers/Transactions/Transactions.html', isVisible: true, isRegister: true }
     ];
 
     app.value('routes', routes);

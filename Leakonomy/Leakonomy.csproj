@@ -67,6 +67,7 @@
   <ItemGroup>
     <Content Include="Common\bootstrap.css" />
     <Content Include="Common\Common.css" />
+    <Content Include="Common\Config.js" />
     <Content Include="Common\ResourceHandler.js" />
     <Content Include="GraphDisplay\GraphDisplay.css" />
     <Content Include="GraphDisplay\GraphDisplay.html" />
@@ -77,6 +78,12 @@
     <Content Include="Registers\Graphs\Graphs.css" />
     <Content Include="Registers\Graphs\Graphs.html" />
     <Content Include="Registers\Graphs\GraphsCtrl.js" />
+    <Content Include="Registers\Tags\Tags.css" />
+    <Content Include="Registers\Tags\Tags.html" />
+    <Content Include="Registers\Tags\TagsCtrl.js" />
+    <Content Include="Registers\Transactions\Transactions.css" />
+    <Content Include="Registers\Transactions\Transactions.html" />
+    <Content Include="Registers\Transactions\TransactionsCtrl.js" />
     <Content Include="TransactionInput\TransactionInput.css" />
     <Content Include="TransactionInput\TransactionInput.html" />
     <Content Include="Index.html" />
@@ -89,10 +96,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Registers\Tags\" />
-    <Folder Include="Registers\Transactions\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
