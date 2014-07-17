@@ -1,1 +1,8 @@
-﻿
+﻿.graphDisplay .btn-addGraph {
+     float: left;
+     margin-top: 0px;
+}
+
+.graphDisplay .chartContainer {
+    margin-bottom: 20px;
+}

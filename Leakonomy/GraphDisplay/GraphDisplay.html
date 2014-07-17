@@ -2,14 +2,25 @@
 <div class="graphDisplay" ng-controller="graphDisplayCtrl as vm">
     <div class="container">
         <div class="col-xs-12">
-            <div class="col-xs-12 col-sm-3">
-                <label>Graph</label>
-                <select class="form-control" ng-model="vm.graph" ng-options="graph.name for graph in vm.graphs" ng-change="vm.selectGraph()"></select>
-            </div>
-        </div>
-        <div class="col-xs-12">
-            <div class="col-xs-12 col-sm-3">
-                <div ng-repeat="chart in vm.charts" id="chart{{chart.index}}"></div>
+            <div class="row">
+
+                <h3>Graphs</h3>
+                <div class="well">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <select class="form-control" ng-model="vm.graph" ng-options="graph.nameAndDate for graph in vm.graphs"></select>
+                        </div>
+                        <div class="col-sm-6" style="padding-left: 0px">
+                            <button class="btn btn-primary btn-addGraph" ng-click="vm.selectGraph()">Add graph</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-4 chartContainer" ng-repeat="chart in vm.charts">
+                        <select class="form-control" ng-model="chart.type" ng-options="graphType.name for graphType in vm.graphTypes"></select>
+                        <chart class="chart" chart-data="chart"></chart>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

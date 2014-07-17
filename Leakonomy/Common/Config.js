@@ -6,8 +6,8 @@
 
     function config() {
         var service = {
-            graphTypes: [{ name: 'Circle' },
-                         { name: 'Bar' }],
+            graphTypes: [{ name: 'Pie' },
+                        { name: 'Area' }, ],
 
             timeIntervals: [{ name: 'Yearly' },
                             { name: 'Monthly' },
