@@ -14,11 +14,19 @@
                             <button class="btn btn-primary btn-addGraph" ng-click="vm.selectGraph()">Add graph</button>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-6 col-sm-4 chartContainer" ng-repeat="chart in vm.charts">
-                        <select class="form-control" ng-model="chart.type" ng-options="graphType.name for graphType in vm.graphTypes"></select>
-                        <chart class="chart" chart-data="chart"></chart>
+
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 chartContainer" ng-repeat="chart in vm.charts">
+                            <div class="col-xs-6">
+                                <select class="form-control" ng-model="chart.type" ng-options="graphType.name for graphType in vm.graphTypes"></select>
+                            </div>
+                            <div class="col-xs-6">
+                                <button class="btn btn-primary" ng-click="vm.removeChart($index)">X</button>
+                            </div>
+                            <div class="col-xs-12">
+                                <chart class="chart" chart-data="chart"></chart>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

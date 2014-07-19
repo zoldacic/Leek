@@ -16,6 +16,7 @@
 
         function showGraph(graph, datasets) {
 
+            var dataTables = {};
             var data = new google.visualization.DataTable();
 
 
@@ -31,17 +32,25 @@
             //  ['2007', 1030, 540]
             //]);
 
-            if (graph.type.name == 'Pie') {
-                data.addColumn('string', 'Dataset');
-                data.addColumn('number', 'Values');
+            //if (graph.type.name == 'Pie') {
+            data.addColumn('string', 'Dataset');
+            data.addColumn('number', 'Values');
 
-                _.each(datasets, function (dataset) {
-                    var sum = _.reduce(dataset.values, function (sum, value) { return sum + value; });
-                    data.addRow([dataset.name, sum]);
-                });
+            _.each(datasets, function (dataset) {
+                var sum = _.reduce(dataset.values, function (sum, value) { return sum + value; });
+                data.addRow([dataset.name, sum]);
+            });
+                
+            dataTables['Pie'] = data;
+            //} else if (graph.type.name == 'Area') {
 
-                var name = '\n' + graph.dateFrom + ' - ' + graph.dateTo;
-            } else if (graph.type.name == 'Area') {
+            data = new google.visualization.DataTable();
+
+
+            if (vm.graph.timeInterval.name == 'Yearly') {
+                // Not implementet
+            } if (vm.graph.timeInterval.name == 'Monthly') {
+
                 data.addColumn('string', 'Month');
                 _.each(datasets, function (dataset) { data.addColumn('number', dataset.name); });
 
@@ -62,14 +71,45 @@
                     data.addRow(dataItems);
                     dateWrapper = dateWrapper.add('months', 1);
                 }
+
+            } else { // Daily
+
+                data.addColumn('string', 'Date');
+                _.each(datasets, function (dataset) { data.addColumn('number', dataset.name); });
+
+                var fromDateWrapper = moment(graph.dateFrom);
+                var toDateWrapper = moment(graph.dateTo);
+                var noOfDays = toDateWrapper.diff(fromDateWrapper, 'days');
+
+                for (var i = 0; i < noOfDays; i++) {
+                    var dataItems = [];
+                    dataItems.push(fromDateWrapper.format('YYMMDD'));
+
+                    _.each(datasets, function (dataset) {
+                        var value = dataset.values[fromDateWrapper.format('YYMMDD')];
+                        value = value ? value : 0;
+                        dataItems.push(parseFloat(value));
+                    });
+
+                    data.addRow(dataItems);
+                    fromDateWrapper = fromDateWrapper.add('days', 1);
+                }
+
             }
 
+
+
+            dataTables['Area'] = data;
+            dataTables['SteppedArea'] = data;
+            //}
+
+            var name = graph.name + '\n' + graph.dateFrom + ' - ' + graph.dateTo;
             var options = {
                 title: name,
                 is3D: true
             };
 
-            vm.charts.push({ data: data, options: options, type: graph.type });
+            vm.charts.push({ data: dataTables, options: options, type: _.find(vm.graphTypes, function(type) { return type.name == graph.type.name; })});
 
             //var chart = new google.visualization.PieChart(document.getElementById('chart' + chartIndex));
             //chart.draw(data, options);
@@ -92,7 +132,20 @@
                 var includedTransactions = _.filter(transactions, function (transaction) { return _.contains(events, transaction.event); });
 
                 // Group transactions (by month)
-                var transactionGroups = _.groupBy(includedTransactions, function (transaction) { return transaction.transactionDate.substring(0, 4) });
+                function getYearFromTransaction(transaction) { return transaction.transactionDate.substring(0, 2) };
+                function getMonthFromTransaction(transaction) { return transaction.transactionDate.substring(0, 4) };
+                function getDateFromTransaction(transaction) { return transaction.transactionDate; };
+
+                var dateGrouping;
+                if (vm.graph.timeInterval.name == 'Yearly') {
+                    dateGrouping = getYearFromTransaction;
+                } if (vm.graph.timeInterval.name == 'Monthly') {
+                    dateGrouping = getMonthFromTransaction;
+                } else {
+                    dateGrouping = getDateFromTransaction;
+                }
+
+                var transactionGroups = _.groupBy(includedTransactions, dateGrouping);
 
                 // Summarize transactions
                 _.each(transactionGroups, function (transactionGroup, key) {
@@ -121,11 +174,16 @@
             createGraph();
         }
 
+        function removeChart(index) {
+            vm.charts.splice(index, 1);
+        }
+
         function activate() {
 
             vm.charts = [];
             vm.selectGraph = selectGraph;
             vm.graphTypes = config.graphTypes;
+            vm.removeChart = removeChart;
 
             // TODO: Use promises instead. Update on 'change'?
             resourceHandler.listGraphs().

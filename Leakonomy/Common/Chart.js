@@ -20,7 +20,7 @@
             
             scope.$watch('chartData', function (chartData) {
                 var chart = new google.visualization[chartData.type.name + 'Chart'](element[0]);
-                chart.draw(chartData.data, chartData.options);
+                chart.draw(chartData.data[chartData.type.name], chartData.options);
             }, true);
         }
 

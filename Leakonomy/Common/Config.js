@@ -7,7 +7,8 @@
     function config() {
         var service = {
             graphTypes: [{ name: 'Pie' },
-                        { name: 'Area' }, ],
+                         { name: 'Area' },
+                         { name: 'SteppedArea' }],
 
             timeIntervals: [{ name: 'Yearly' },
                             { name: 'Monthly' },

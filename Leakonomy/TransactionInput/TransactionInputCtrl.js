@@ -81,6 +81,8 @@
             });
 
             clearAll();
+
+            toastr.success('Added tags');
             currentPhase = vm.Phases.STEP1;
         }
 
@@ -99,7 +101,11 @@
             vm.transactions = [];
             vm.uniqueEvents = [];
             vm.eventTagLists = [];
+        }
 
+        function getTransactionGridHeight() {
+            var noOfTransactions = vm.transactions ? vm.transactions.length : 0;
+            return 70 + noOfTransactions * 30 + 'px';
         }
 
         function setupGrids() {
@@ -108,6 +114,10 @@
                 enableCellSelection: true,
                 enableRowSelection: false,
                 enableCellEditOnFocus: true,
+                multiSelect: false,
+                keepLastSelected: true,
+                showGroupPanel: true,
+                showFilter: true,
                 columnDefs: [
                     { field: 'transactionDate', displayName: 'TransactionDate', enableCellEdit: true },
                     { field: 'event', displayName: 'Event', enableCellEdit: false },
@@ -136,6 +146,7 @@
 
             vm.isInPhase = isInPhase;
             vm.setActive = setActive;
+            vm.getTransactionGridHeight = getTransactionGridHeight;
 
             vm.Phases = { STEP1: 1, STEP2: 2, STEP3: 3, STEP4: 4 };
 
