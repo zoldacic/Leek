@@ -6,7 +6,7 @@
 
     function resourceHandler($firebase, $q) {
 
-        var baseRef, transactionsRef, tagsRef, graphsRef;
+        var baseRef, transactionsRef, tagsRef, graphsRef, homeUpgradesRef;
 
         function list(ref) {
             var deferred = $q.defer();
@@ -23,6 +23,7 @@
             transactionsRef = $firebase(new Firebase(baseRef + '/transactions'));
             tagsRef = $firebase(new Firebase(baseRef + '/tags'));
             graphsRef = $firebase(new Firebase(baseRef + '/graphs'));
+            homeUpgradesRef = $firebase(new Firebase(baseRef + '/homeUpgrades'));
         }
 
         activate();
@@ -31,8 +32,10 @@
             listTransactions: function () { return list(transactionsRef); },
             listTags: function () { return list(tagsRef); },
             listGraphs: function () { return list(graphsRef); },
+            listHomeUpgrades: function () { return list(homeUpgradesRef); },
 
             getGraph: function (key) { return list($firebase(new Firebase(baseRef + '/graphs/' + key))); },
+            getHomeUpgrade: function (key) { return list($firebase(new Firebase(baseRef + '/homeUpgrades/' + key))); },
 
             baseRef: baseRef,
             transactionsRef: transactionsRef,
@@ -40,7 +43,8 @@
             // TODO: Remove ref below
             transactionRef: transactionsRef,
             tagsRef: tagsRef,
-            graphsRef: graphsRef
+            graphsRef: graphsRef,
+            homeUpgradesRef: homeUpgradesRef
         };
 
         return service;

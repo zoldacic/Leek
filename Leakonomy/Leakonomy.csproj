@@ -74,6 +74,9 @@
     <Content Include="GraphDisplay\GraphDisplay.html" />
     <Content Include="GraphDisplay\GraphDisplayCtrl.js" />
     <Content Include="Main\MainCtrl.js" />
+    <Content Include="Registers\HomeUpgrades\HomeUpgrades.css" />
+    <Content Include="Registers\HomeUpgrades\HomeUpgrades.html" />
+    <Content Include="Registers\HomeUpgrades\HomeUpgradesCtrl.js" />
     <Content Include="Registers\Graphs\Datasets.html" />
     <Content Include="Registers\Graphs\DatasetsCtrl.js" />
     <Content Include="Registers\Graphs\Graphs.css" />
