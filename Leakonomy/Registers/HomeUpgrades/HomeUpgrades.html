@@ -5,22 +5,22 @@
         <div class="col-xs-12 col-sm-7">
             <div class="row">
 
-                <h3>Graphs</h3>
+                <h3>Home Upgrades</h3>
                 <div class="well">
                     <div class="row">
 
-                        <div class="col-sm-12"><label for="graphName">Title</label><input id="title" class="form-control" type="text" ng-model="vm.homeUpgrade.name" /></div>
+                        <div class="col-sm-12"><label for="graphName">Title</label><input id="title" class="form-control" type="text" ng-model="vm.homeUpgrade.title" /></div>
                         <div class="col-sm-12"><label>Date of purchase</label><input class="form-control" type="date" ng-model="vm.homeUpgrade.dateOfPurchase" /></div>
                         <div class="col-sm-12"><label>Info</label><input class="form-control" type="text" ng-model="vm.homeUpgrade.info" /></div>
 
                         <div class="col-sm-12">
-                            <button ng-show="vm.isInUpdate()" type="button" class="btn btn-primary" ng-click="vm.undoUpgrade()">Undo</button>
-                            <button ng-show="vm.isInUpdate()" type="button" class="btn btn-primary" ng-click="vm.updateUpgrade()">Save upgrade</button>
-                            <button type="button" class="btn btn-default" ng-click="vm.addUpdate()">Save as new upgrade</button>
+                            <button ng-show="vm.isInUpdate()" type="button" class="btn btn-primary" ng-click="vm.undoHomeUpgrade()">Undo</button>
+                            <button ng-show="vm.isInUpdate()" type="button" class="btn btn-primary" ng-click="vm.updateHomeUpgrade()">Save upgrade</button>
+                            <button type="button" class="btn btn-default" ng-click="vm.addHomeUpgrade()">Save as new upgrade</button>
                         </div>
 
-                        <div class="col-sm-12">
-                            <div class="gridStyle" ng-grid="vm.upgradeGridOptions"></div>
+                        <div class="col-sm-12" ng-style="{height: vm.getGridHeight() }">
+                            <div class="gridStyle" ng-grid="vm.homeUpgradeGridOptions"></div>
                         </div>
 
                     </div>

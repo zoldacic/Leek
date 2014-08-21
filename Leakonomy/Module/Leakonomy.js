@@ -14,6 +14,8 @@ var appName = 'leakonomy';
         'firebase'
     ]);
 
+    // TODO: Use these routes to create the start page
+
     var routes = [
         { name: 'Main', text: 'Home', url: 'Main/Main.html', isVisible: false },
         { name: 'TransactionInput', text: 'Add', url: 'TransactionInput/TransactionInput.html', isVisible: true, isRegister: false },
@@ -21,7 +23,7 @@ var appName = 'leakonomy';
         { name: 'GraphRegister', text: 'Graphs', url: 'Registers/Graphs/Graphs.html', isVisible: true, isRegister: true },
         { name: 'TagsRegister', text: 'Tags', url: 'Registers/Tags/Tags.html', isVisible: true, isRegister: true },
         { name: 'TransactionRegister', text: 'Transactions', url: 'Registers/Transactions/Transactions.html', isVisible: true, isRegister: true },
-        { name: 'HomeUpgradesRegister', text: 'Home Upgrades', url: 'Registers/HomeUpgrades/HomeUpgrades.html', isVisible: true, isRegister: true }
+        { name: 'HomeUpgradesRegister', text: 'Home Upgrades', url: 'Registers/HomeUpgrades/HomeUpgrades.html', isVisible: true, isRegister: true },
     ];
 
     app.value('routes', routes);

@@ -13,7 +13,7 @@
         var vm = this;
 
         function setupGrids() {
-            vm.graphGridOptions = {
+            vm.homeUpgradeGridOptions = {
                 data: 'vm.homeUpgrades',
                 enableCellSelection: false,
                 enableRowSelection: true,
@@ -23,7 +23,7 @@
                 enableCellEditOnFocus: false,
                 showGroupPanel: true,
                 showFilter: true,
-                sortInfo: { fields: ['name'], directions: ['asc'] },
+                sortInfo: { fields: ['title'], directions: ['asc'] },
                 columnDefs: [
                     { field: 'title', displayName: 'Title', enableCellEdit: false },
                     { field: 'dateOfPurchase', displayName: 'Date of Purchase', enableCellEdit: false },
@@ -78,7 +78,7 @@
         function updateHomeUpgrade() {
 
             var isUpdate = false;
-            if (vm.graph.key) {
+            if (vm.homeUpgrade.key) {
                 homeUpgradesRef.$remove(vm.homeUpgrade.key);
                 isUpdate = true;
             }
@@ -103,7 +103,7 @@
             var index = _.indexOf(vm.homeUpgrades, item);
             vm.homeUpgrades.splice(index, 1);
 
-            homeUpgeradesRef.$remove(homeUpgrade.key);
+            homeUpgradesRef.$remove(vm.homeUpgrade.key);
             reset();
 
             vm.homeUpgradeGridOptions.selectAll(false);
@@ -136,7 +136,7 @@
             vm.deleteHomeUpgrade = deleteHomeUpgrade;
 
             resourceHandler.listHomeUpgrades().then(function (items) {
-                _.each(homeUpgrades, function (item, key) {
+                _.each(items, function (item, key) {
                     item.key = key;
                     vm.homeUpgrades.push(item);
                 });

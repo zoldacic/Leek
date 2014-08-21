@@ -1,4 +1,4 @@
-﻿.graphRegister .gridStyle {
+﻿.homeUpgradesRegister .gridStyle {
     border: 1px solid rgb(212,212,212);
     width: 100%;
     height: 100%;
@@ -6,6 +6,6 @@
     margin-top: 10px;
 }
 
-.graphRegister .well {
+.homeUpgradesRegister .well {
     padding-top: 8px;
 }

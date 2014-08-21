@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>firebase-simple-login</id>
+    <version>1.6.3</version>
+    <title>Firebase Simple Login Web Client</title>
+    <authors>firebase</authors>
+    <owners>firebase</owners>
+    <licenseUrl>https://github.com/firebase/firebase-simple-login/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/firebase/firebase-simple-login</projectUrl>
+    <iconUrl>https://avatars1.githubusercontent.com/u/1335026?s=140</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Firebase Simple Login Web Client</description>
+    <summary>Firebase Simple Login Web Client 
+https://www.firebase.com/docs/security/simple-login-overview.html</summary>
+    <tags>Firebase synchronization real-time websocket authentication login</tags>
+    <dependencies>
+      <dependency id="Firebase.js" version="1.0.11" />
+    </dependencies>
+  </metadata>
+</package>

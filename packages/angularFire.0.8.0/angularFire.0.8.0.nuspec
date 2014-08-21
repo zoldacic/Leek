@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>angularFire</id>
+    <version>0.8.0</version>
+    <authors>fireabase</authors>
+    <owners>fireabase</owners>
+    <licenseUrl>http://firebase.mit-license.org/</licenseUrl>
+    <projectUrl>https://github.com/firebase/angularfire</projectUrl>
+    <iconUrl>https://camo.githubusercontent.com/4205cbc9b2e68e1edf9ce2f27a2bd3d582a0d71c/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f343835343532302f3737383837312f35643039306162382d653962642d313165322d393861652d3631366133373362336135342e6a7067</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>AngularJS bindings for Firebase.</description>
+    <summary>AngularJS bindings for Firebase. 
+https://www.firebase.com/angular</summary>
+    <tags>firebase angular real-time binding websocket</tags>
+    <dependencies>
+      <dependency id="angularjs" version="1.2.0" />
+      <dependency id="Firebase.js" version="1.0.11" />
+      <dependency id="firebase-simple-login" version="1.6.3" />
+    </dependencies>
+  </metadata>
+</package>
