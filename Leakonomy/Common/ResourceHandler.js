@@ -11,10 +11,22 @@
         function list(ref) {
             var deferred = $q.defer();
 
-            ref.$on('loaded', function (data) {
-                deferred.resolve(data);
-            });
+            ref.$asObject().$loaded().then(function (items) {
+                var keyedItems = [];
+                _.each(items, function (item, key) {
+                    if (key[0] != '$') {
+                        item.key = key;
+                        keyedItems.push(item);
+                    }
+                });
 
+                deferred.resolve(keyedItems);
+            });
+            //ref.$on('loaded', function (data) {
+            //    deferred.resolve(data);
+            //});
+
+            //
             return deferred.promise;
         }
 

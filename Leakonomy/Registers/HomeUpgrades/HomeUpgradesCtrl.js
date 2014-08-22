@@ -135,12 +135,7 @@
             vm.getGridHeight = getGridHeight;
             vm.deleteHomeUpgrade = deleteHomeUpgrade;
 
-            resourceHandler.listHomeUpgrades().then(function (items) {
-                _.each(items, function (item, key) {
-                    item.key = key;
-                    vm.homeUpgrades.push(item);
-                });
-            });
+            resourceHandler.listHomeUpgrades().then(function(items) { vm.homeUpgrades = items; });
 
             setupGrids();
 

@@ -21,9 +21,9 @@ var appName = 'leakonomy';
         { name: 'TransactionInput', text: 'Add', url: 'TransactionInput/TransactionInput.html', isVisible: true, isRegister: false },
         { name: 'GraphDisplay', text: 'View', url: 'GraphDisplay/GraphDisplay.html', isVisible: true, isRegister: false },
         { name: 'GraphRegister', text: 'Graphs', url: 'Registers/Graphs/Graphs.html', isVisible: true, isRegister: true },
-        { name: 'TagsRegister', text: 'Tags', url: 'Registers/Tags/Tags.html', isVisible: true, isRegister: true },
+        { name: 'TagRegister', text: 'Tags', url: 'Registers/Tags/Tags.html', isVisible: true, isRegister: true },
         { name: 'TransactionRegister', text: 'Transactions', url: 'Registers/Transactions/Transactions.html', isVisible: true, isRegister: true },
-        { name: 'HomeUpgradesRegister', text: 'Home Upgrades', url: 'Registers/HomeUpgrades/HomeUpgrades.html', isVisible: true, isRegister: true },
+        { name: 'HomeUpgradeRegister', text: 'Home Upgrades', url: 'Registers/HomeUpgrades/HomeUpgrades.html', isVisible: true, isRegister: true },
     ];
 
     app.value('routes', routes);
